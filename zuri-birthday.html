@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Zuri 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    background: #111;
+    overflow-x: hidden;
+}
+
+/* HERO */
+header {
+    height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:url('zuri-photo.jpg') center/cover no-repeat;
+    position:relative;
+}
+header::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+}
+header * { position:relative; z-index:1; }
+
+/* BUTTONS */
+.btn {
+    margin-top:15px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:white;
+    color:#ff4d6d;
+    cursor:pointer;
+}
+
+/* SECTIONS */
+section { padding:60px 20px; }
+
+/* TYPEWRITER */
+#typedText {
+    max-width:600px;
+    margin:auto;
+    font-size:1.2em;
+}
+
+/* CAROUSEL */
+.carousel {
+    position: relative;
+    width: 600px;
+    max-width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+.carousel img {
+    min-width: 100%;
+    height: 350px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* SECRET MESSAGE */
+#secret {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 9999;
+}
+#secret p { font-size: 1.5rem; }
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* HEARTS */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+    to { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* MUSIC SELECTION */
+.music-selection {
+    margin-top: 15px;
+}
+.music-selection select {
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1em;
+}
+.music-embed {
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Happy Birthday Zu 💖</h1>
+<h2>Forever a vibe 🌅</h2>
+</header>
+
+<section>
+<h2>💌 A Message For You</h2>
+<p id="typedText"></p>
+</section>
+
+<section>
+<h2>🎶 Your Songs</h2>
+<div class="music-selection">
+    <select id="songSelect" onchange="switchSong()">
+           <option value="1ShRHPAiiIrh0arZbSFmx1">Heavy - The Maris</option>
+        <option value="7bHzqeMnYZ7kuK7IHGYdcz">Another Night - Clara La San</option>
+       
+        <option value="7iKcCH5vpjZgCJRNm7yD3L">Flaming Hot Cheetos - Clairo</option>
+    </select>
+</div>
+<div class="music-embed" id="musicEmbed">
+    <iframe src="https://open.spotify.com/embed/track/1ShRHPAiiIrh0arZbSFmx1" width="300" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+</section>
+
+<section>
+<h2>📸 Memories</h2>
+<div class="carousel">
+    <button class="prev">&#10094;</button>
+    <div class="carousel-track" id="track">
+        <img src="zuri-photo1.jpg" onclick="showSecret()">
+        <img src="zuri-photo2.jpg" onclick="showSecret()">
+        <img src="zuri-photo4.jpg" onclick="showSecret()">
+    </div>
+    <button class="next">&#10095;</button>
+</div>
+</section>
+
+<section>
+<h2>✨ Reasons You're Amazing</h2>
+<div class="card" id="reasonBox">Tap the button 😊</div>
+<button class="btn" onclick="showLove()">Tap for a surprise 🎉</button>
+</section>
+
+
+<section>
+<h2>💌One Last Thing </h2>
+<button class="btn" onclick="finalMessage()">Final surprise💌 </button>
+<p id="finalText"></p>
+</section>
+
+<section>
+<p>I’m really glad I met you 💖</p>
+</section>
+
+<!-- SECRET POPUP -->
+<div id="secret" onclick="this.style.display='none'">
+  <p>This moment meant more than you know 🌅💖</p>
+</div>
+
+<script>
+function finalMessage(){
+document.getElementById("finalText").innerText = "Zu I genuiely love you bro";
+
+}
+
+/* TYPEWRITER */
+const text = "Zuri, you’re honestly one of the sweetest people I’ve ever met. Being around you just feel easy and real. You make people laugh, makes my day always better and just being near you is the best energy ever. I hope this year gives you everything you deserve and more. 💖";
+
+
+
+let i=0;
+function typeWriter(){
+ if(i<text.length){
+  document.getElementById("typedText").innerHTML += text.charAt(i);
+  i++;
+  setTimeout(typeWriter,30);
+ }
+}
+typeWriter();
+
+/* CAROUSEL */
+let index=0;
+const track=document.getElementById("track");
+const slides=document.querySelectorAll("#track img");
+function updateCarousel(){
+ track.style.transform=`translateX(-${index*100}%)`;
+}
+document.querySelector(".next").onclick=()=>{
+ index=(index+1)%slides.length;
+ updateCarousel();
+};
+document.querySelector(".prev").onclick=()=>{
+ index=(index-1+slides.length)%slides.length;
+ updateCarousel();
+};
+
+/* SECRET MESSAGE */
+function showSecret(){
+ document.getElementById("secret").style.display="flex";
+}
+
+/* REASONS */
+const reasons = [
+"1. You’re amazing 💖",
+"2. You light up everything ✨",
+"3. You’re unforgettable 💫",
+"4. You deserve the best always 🌸",
+"5. You always make me smile 😊",
+"6. Your kindness 🤍",
+"7. Your silliness 😄",
+"8. Your effort 💯",
+"9. You always listen to me 🎧",
+"10. Your caring nature 💕",
+"11. Your love for animals 🐾",
+"12. The way you make time for me ⏳",
+"13. You made life more fun 🎉",
+"14. Your energy ⚡",
+"15. Your honesty 🫶",
+"16. Your calmness 🌊",
+"17. Your style 🔥",
+"18. Your trust 🤝",
+"19. Your openness 💬",
+"20. Your random texts 📱",
+"21. Your voice 🥹",
+"22. Your nature 🌿",
+"23. Your interests 🎧",
+"24. You really know how to cheer me up 💛",
+"25. You can switch between weirdness and maturity 😂",
+"26. You always give excellent advice 🧠",
+"27. I can be myself when I'm with you 🥹",
+"28. You’re 100% perfect and fuckin awesome 😤💖",
+"29. Your yapping sessions 😂",
+"30. You make me feel safe 🛡️",
+"31. You are ambitious 🚀",
+"32. Your generosity 🎁",
+"33. Your smile 😊",
+"34. Your personality 🌟",
+"35. How supportive you are 🤍",
+"36. All our memories together 📸",
+"37. You are beautiful inside and out 💐",
+"38. Our FaceTime calls 📱",
+"39. The bond we created 🤝",
+"40. You tell me what I need to hear 💬",
+"41. You’ve seen me at my best and worst 🫂",
+"42. You’re like my sister 🫶",
+"43. Always having fun together 🎉",
+"44. You always put others before yourself 🤍",
+"45. You defend me 🛡️",
+"46. I can never get bored of you 😌",
+"47. You understand me 🧠",
+"48. Our inside jokes 😂",
+"49. Your hair 💇‍♀️",
+"50. Your loyalty 🐐",
+"51. How it’s never awkward together 😌",
+"52. How fast we got close ⚡",
+"53. Us trolling 😂",
+"54. Sending TikToks 📱",
+"55. How we can call and just be silent 🤍",
+"56. You make life worth it 💖",
+"57. You always get me 🧠",
+"58. You have a good heart ❤️",
+"59. You know how to bring my mood up ☀️",
+"60. I can always count on you 🤝",
+"61. You read my mind 🔮",
+"62. You’re just real with me 💯",
+"63. You feed into my delusion 😂",
+"64. Random FaceTime calls 📞",
+"65. Just our friendship overall 💖",
+"66. You can tell when I’m upset 🥹",
+"67. Same person, different font 😭",
+"69. How you check up on me without me asking 💬",
+"70. The way you laugh 😂",
+"71. You make normal moments feel special ✨",
+"72. You make bad days feel lighter ☀️",
+"73. You match my energy every time ⚡",
+"74. The way you hype me up 🔥",
+"75. You make me feel important 🥹",
+"76. How you don’t switch up 🐐",
+"77. The way you understand without me explaining 🧠",
+"78. The way you trust me 🤝", 
+"79. You bring peace into my life 🕊️",
+"80. You’re one of a kind fr 💎", 
+"81. The way you show love 💖", 
+"82. You make life feel less stressful 😌", 
+"83. The way you stay genuine 💯",
+"84. How you always try, even when you’re tired 💯",
+"85. The way you make people feel included 🤍",
+"86. The way you balance being fun and real 😌",
+"87. How you make me laugh at the dumbest things 😂",
+"88. How you never make me feel like too much 🥹",
+"89. The way you express yourself 💬",
+"90. Our late night gaming sessions 🎮",
+"91. Just you zuri <3 you are the best "
+
+
+
+
+];
+function showLove(){
+ document.getElementById("reasonBox").innerText =
+ reasons[Math.floor(Math.random()*reasons.length)];
+}
+
+/* HEARTS */
+setInterval(()=>{
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText="💖";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize = (Math.random()*20 + 10) + "px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),6000);
+},400);
+
+/* SPOTIFY SWITCH */
+function switchSong(){
+ const trackId = document.getElementById("songSelect").value;
+ const embedDiv = document.getElementById("musicEmbed");
+ embedDiv.innerHTML = `<iframe src="https://open.spotify.com/embed/track/${trackId}" width="300" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
+}
+</script>
+
+</body>
+</html>
